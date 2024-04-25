@@ -1,7 +1,7 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
   <!-- Sidebar - Brand -->
-  <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+  <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/dashboard">
     <div class="sidebar-brand-icon rotate-n-15">
       <i class="fas fa-laugh-wink"></i>
     </div>
@@ -12,8 +12,8 @@
   <hr class="sidebar-divider my-0">
 
   <!-- Nav Item - Dashboard -->
-  <li class="nav-item {{ Request::is('dashboard') ? 'active' : '' }}">
-    <a class="nav-link" href="index.html">
+  <li class="nav-item {{ Request::is('dashboard') || Request::is('dashboard/profiles*') ? 'active' : '' }}">
+    <a class="nav-link" href="/dashboard">
       <i class="fas fa-fw fa-tachometer-alt"></i>
       <span>Dashboard</span></a>
   </li>
@@ -27,11 +27,11 @@
   </div>
 
   <!-- Nav Item - Charts -->
-  {{-- <li class="nav-item {{ Request::is('dashboard/teachers*') ? 'active' : '' }}">
-    <a class="nav-link" href="{{ route('teachers.index') }}">
+  <li class="nav-item {{ Request::is('dashboard/apa*') ? 'active' : '' }}">
+    <a class="nav-link" href="{{ route('profiles.index') }}">
       <i class="fas fa-fw fa-chart-area"></i>
-      <span>Data Guru</span></a>
-  </li> --}}
+      <span>Data Produk</span></a>
+  </li>
 
   <!-- Nav Item - Tables -->
   <li class="nav-item">

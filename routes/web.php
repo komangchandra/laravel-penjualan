@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -21,3 +22,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
+
+Route::controller(ProfileController::class)->group(function(){
+    Route::get('/dashboard/profiles', 'index')->name('profiles.index');
+    Route::get('/dashboard/profiles/{profile}/edit', 'edit')->name('profiles.edit');
+    Route::put('/dashboard/profiles/{profile}', 'update')->name('profiles.update');
+});
