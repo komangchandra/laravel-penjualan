@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.app')
 
-@section('title', 'Dashboard - Data Guru')
+@section('title', 'Dashboard - Edit Profile')
 
 @section('content')
   <h1 class="h3 mb-4 text-gray-800">Ayo update nama perusahaanmu</h1>

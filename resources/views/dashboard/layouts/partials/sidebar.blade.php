@@ -26,10 +26,26 @@
     Master Data
   </div>
 
-  <!-- Nav Item - Charts -->
+  <li class="nav-item {{ Request::is('dashboard/categories*') || Request::is('dashboard/products*') ? 'active' : '' }}">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
+      aria-controls="collapseTwo">
+      <i class="fas fa-fw fa-cart-plus"></i>
+      <span>Data Produk</span>
+    </a>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Custom Components:</h6>
+        <a class="collapse-item {{ Request::is('dashboard/categories*') ? 'active' : '' }}"
+          href="{{ route('categories.index') }}">Kategori</a>
+        <a class="collapse-item {{ Request::is('dashboard/products*') ? 'active' : '' }}"
+          href="{{ route('products.index') }}">Produk</a>
+      </div>
+    </div>
+  </li>
+
   <li class="nav-item {{ Request::is('dashboard/apa*') ? 'active' : '' }}">
     <a class="nav-link" href="{{ route('profiles.index') }}">
-      <i class="fas fa-fw fa-chart-area"></i>
+      <i class="fas fa-fw fa-file"></i>
       <span>Data Produk</span></a>
   </li>
 

@@ -1,13 +1,14 @@
 @extends('dashboard.layouts.app')
 
-@section('title', 'Dashboard - Profile')
+@section('title', 'Dashboard - Date Kategori')
 
 @push('css')
   <link href="{{ asset('/') }}dash/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 @endpush
 
 @section('content')
-  <h1 class="h3 mb-4 text-gray-800">Konfigurasi CRM Perusahaan</h1>
+  <h1 class="h3 mb-4 text-gray-800">Kategori Produk</h1>
+  <a class="btn btn-primary mb-3" href="{{ route('categories.create') }}">Tambahkan Kategori</a>
 
   @if (session('success'))
     <div class="alert alert-success col-lg-4">
@@ -17,7 +18,7 @@
 
   <div class="card shadow mb-4">
     <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">Profile Perusahaan</h6>
+      <h6 class="m-0 font-weight-bold text-primary">Tabel Kategori</h6>
     </div>
     <div class="card-body">
       <div class="table-responsive">
@@ -25,44 +26,36 @@
           <thead>
             <tr>
               <th>#</th>
-              <th>Nama Perusahaan</th>
-              <th>Alamat</th>
-              <th>Nomor Hp</th>
-              <th>Email</th>
+              <th>Nama Kategoru</th>
               <th>Aksi</th>
             </tr>
           </thead>
           <tfoot>
             <tr>
               <th>#</th>
-              <th>Nama Perusahaan</th>
-              <th>Alamat</th>
-              <th>Nomor Hp</th>
-              <th>Email</th>
+              <th>Nama Kategoru</th>
               <th>Aksi</th>
             </tr>
           </tfoot>
           <tbody>
-            @forelse ($profiles as $profile)
+            @forelse ($categories as $category)
               <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ $profile->company_name }}</td>
-                <td>{{ $profile->address }}</td>
-                <td>{{ $profile->number }}</td>
-                <td>{{ $profile->email }}</td>
+                <td>{{ $category->category_name }}</td>
                 <td>
-                  <form onsubmit="return confirm('Are you sure you want to delete??');" action="" method="POST">
-                    <a href="{{ route('profiles.edit', $profile->id) }}" class="btn btn-sm btn-warning"><i
+                  <form onsubmit="return confirm('Yakin ingin menghapus data?');"
+                    action="{{ route('categories.destroy', $category->id) }}" method="POST">
+                    <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-sm btn-warning"><i
                         class="fa fa-pencil-alt"></i></a>
                     @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
                   </form>
-                  {{-- <a href="{{ route('profiles.edit', $profile->id) }}" class="btn btn-sm btn-warning"><i
-                      class="fa fa-pencil-alt"></i></a> --}}
                 </td>
               </tr>
             @empty
               <div class="alert alert-danger">
-                Data empty.
+                Data kosong.
               </div>
             @endforelse
           </tbody>

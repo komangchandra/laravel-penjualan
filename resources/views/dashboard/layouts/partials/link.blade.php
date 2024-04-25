@@ -7,4 +7,18 @@
 <!-- Custom styles for this template-->
 <link href="{{ asset('/') }}dash/css/sb-admin-2.min.css" rel="stylesheet">
 
+<style>
+  .img-table {
+    max-width: 100%;
+    height: 100px;
+    display: block;
+  }
+
+  .img-product {
+    max-width: 100%;
+    height: 250px;
+    display: block;
+  }
+</style>
+
 @stack('css')
