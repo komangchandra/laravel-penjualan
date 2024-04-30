@@ -25,7 +25,19 @@ class ConfirmPasswordController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/dashboard';
+    // protected $redirectTo = '/dashboard';
+
+    protected function redirectTo()
+    {
+        // Check apakah user memiliki role admin
+        if (auth()->user()->is_admin) {
+            // Jika user adalah admin, arahkan ke dashboard
+            return '/dashboard';
+        } else {
+            // Jika bukan, arahkan ke welcome
+            return '/';
+        }
+    }
 
     /**
      * Create a new controller instance.

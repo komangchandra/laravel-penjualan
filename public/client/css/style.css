@@ -1,0 +1,16 @@
+body {
+    font-family: "Poppins", sans-serif;
+}
+
+.img-blog {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.img-cart {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+}

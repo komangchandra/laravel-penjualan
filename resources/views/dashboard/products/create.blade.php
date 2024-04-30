@@ -40,15 +40,29 @@
                 </div>
               </div>
               <div class="mb-3 row">
+                <label for="discount_id" class="col-sm-4 col-form-label">Nama Diskon</label>
+                <div class="col-sm-6">
+                  <select class="form-select" aria-label="Default select example" name="discount_id">
+                    <option value="" selected>Pilih Diskon</option>
+                    @foreach ($discounts as $discount)
+                      <option value="{{ $discount->id }}">{{ $discount->discount_name }} -
+                        {{ number_format($discount->discount, 0, ',', '.') }}%
+                      </option>
+                    @endforeach
+                  </select>
+                </div>
+              </div>
+              <div class="mb-3 row">
                 <label for="price" class="col-sm-4 col-form-label">Harga</label>
                 <div class="col-sm-6">
                   <input type="number" class="form-control" id="price" name="price" required>
                 </div>
               </div>
               <div class="mb-3 row">
-                <label for="stoc" class="col-sm-4 col-form-label">Stok</label>
-                <div class="col-sm-6">
-                  <input type="number" class="form-control" id="stoc" name="stoc" required>
+                <label for="stoc" class="col-sm-4 col-form-label">Keterangan</label>
+                <div class="form-floating col-sm-6">
+                  <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"
+                    name="product_information" required></textarea>
                 </div>
               </div>
               <div class="mb-3 row">

@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.app')
 
-@section('title', 'Dashboard - Date Produk')
+@section('title', 'Dashboard - Data Discount')
 
 @push('css')
   <link href="{{ asset('/') }}dash/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -8,17 +8,17 @@
 
 @section('content')
   <h1 class="h3 mb-4 text-gray-800">Kategori Produk</h1>
-  <a class="btn btn-primary mb-3" href="{{ route('products.create') }}">Tambahkan Produk</a>
+  <a class="btn btn-primary mb-3" href="{{ route('discounts.create') }}">Tambahkan Kategori</a>
 
   @if (session('success'))
-    <div class="alert alert-success">
+    <div class="alert alert-success col-lg-4">
       {{ session('success') }}
     </div>
   @endif
 
-  <div class="card shad ow mb-4">
+  <div class="card shadow mb-4">
     <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">Tabel Produk</h6>
+      <h6 class="m-0 font-weight-bold text-primary">Tabel Kategori</h6>
     </div>
     <div class="card-body">
       <div class="table-responsive">
@@ -26,46 +26,29 @@
           <thead>
             <tr>
               <th>#</th>
-              <th>Nama Produk</th>
-              <th>Kategori</th>
-              <th>Diskon</th>
-              <th>Harga</th>
-              <th>Harga Akhir</th>
-              <th>Keterangan</th>
-              <th>Foto</th>
+              <th>Nama Diskon</th>
+              <th>Besar Diskon</th>
               <th>Aksi</th>
             </tr>
           </thead>
           <tfoot>
             <tr>
               <th>#</th>
-              <th>Nama Produk</th>
-              <th>Kategori</th>
-              <th>Diskon</th>
-              <th>Harga</th>
-              <th>Harga Akhir</th>
-              <th>Keterangan</th>
-              <th>Foto</th>
+              <th>Nama Diskon</th>
+              <th>Besar Diskon</th>
               <th>Aksi</th>
             </tr>
           </tfoot>
           <tbody>
-            @forelse ($products as $product)
+            @forelse ($discounts as $discount)
               <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ $product->product_name }}</td>
-                <td>{{ optional($product->category)->category_name }}</td>
-                <td>{{ number_format(optional($product->discount)->discount, 0, ',', '.') }}%</td>
-                <td>Rp {{ number_format($product->price, 0, ',', '.') }}</td>
-                <td>Rp {{ number_format($product->price_discount, 0, ',', '.') }}</td>
-                <td>{{ $product->product_information }}</td>
-                <td>
-                  <img src="{{ asset('storage/products/' . $product->image) }}" alt="" class="img-table">
-                </td>
+                <td>{{ $discount->discount_name }}</td>
+                <td>{{ number_format($discount->discount, 0, ',', '.') }}%</td>
                 <td>
                   <form onsubmit="return confirm('Yakin ingin menghapus data?');"
-                    action="{{ route('products.destroy', $product->id) }}" method="POST">
-                    <a href="{{ route('products.edit', $product->id) }}" class="btn btn-sm btn-warning"><i
+                    action="{{ route('discounts.destroy', $discount->id) }}" method="POST">
+                    <a href="{{ route('discounts.edit', $discount->id) }}" class="btn btn-sm btn-warning"><i
                         class="fa fa-pencil-alt"></i></a>
                     @csrf
                     @method('DELETE')

@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('admin');
+    }
+    
     public function index()
     {
         $profiles = Profile::all();
@@ -17,25 +23,6 @@ class ProfileController extends Controller
     {
         return view('dashboard.profile');
     }
-
-    // public function store(Request $request)
-    // {
-    //     $request -> validate([
-    //         'company_name' => 'required',
-    //         'address' => 'required',
-    //         'number' => 'required',
-    //         'email' => 'required',
-    //     ]);
-
-    //     Profile::create([
-    //         'company_name' => $request->company_name,
-    //         'address' => $request->address,
-    //         'number' => $request->number,
-    //         'email' => $request->email,
-    //     ]);
-
-    //     return redirect()->route('profiles.index')->with('success', 'Profile baru ditambahkan');
-    // }
 
     public function edit(Profile $profile)
     {

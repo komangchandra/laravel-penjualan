@@ -3,22 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Discount;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('admin');
+    }
+    
     public function index()
     {
-        $products = Product::with('category')->get();
+        $products = Product::with(['category', 'discount'])->get();
         return view('dashboard.products.index', compact('products'));
     }
 
     public function create()
     {
         $categories = Category::all();
-        return view('dashboard.products.create', compact('categories'));
+        $discounts = Discount::all();
+        return view('dashboard.products.create', compact('categories', 'discounts'));
     }
 
     public function store(Request $request)
@@ -27,9 +35,18 @@ class ProductController extends Controller
             'product_name' => 'required',
             'category_id' => 'required',
             'price' => 'required',
-            'stoc' => 'required',
+            'product_information' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|',
         ]);
+
+        $discountData = null;
+        if ($request->discount_id) {
+            $discountData = Discount::find($request->discount_id);
+        }
+        $discount = $discountData ? $discountData->discount : 0;
+
+        $priceDiscount = ($discount / 100) * $request->price;
+        $priceEnd = $request->price - $priceDiscount;
 
         $imagePath = $request->file('image')->store('public/products');
         $imageName = basename($imagePath);
@@ -37,8 +54,10 @@ class ProductController extends Controller
         Product::create([
             'product_name' => $request->product_name,
             'category_id' => $request->category_id,
+            'discount_id' => $request->discount_id,
             'price' => $request->price,
-            'stoc' => $request->stoc,
+            'price_discount' => $priceEnd, 
+            'product_information' => $request->product_information,
             'image' => $imageName,
         ]);
 
@@ -48,7 +67,8 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $categories = Category::all();
-        return view('dashboard.products.edit', compact('product', 'categories'));
+        $discounts = Discount::all();
+        return view('dashboard.products.edit', compact('product', 'categories', 'discounts'));
     }
 
     public function update(Request $request, Product $product)
@@ -59,9 +79,18 @@ class ProductController extends Controller
             'product_name' => 'required',
             'category_id' => 'required',
             'price' => 'required',
-            'stoc' => 'required',
+            'product_information' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|',
         ]);
+
+        $discountData = null;
+        if ($request->discount_id) {
+            $discountData = Discount::find($request->discount_id);
+        }
+        $discount = $discountData ? $discountData->discount : 0;
+
+        $priceDiscount = ($discount / 100) * $request->price;
+        $priceEnd = $request->price - $priceDiscount;
 
         $imagePath = $request->file('image')->store('public/products');
         $imageName = basename($imagePath);
@@ -69,8 +98,10 @@ class ProductController extends Controller
         $product->update([
             'product_name' => $request->product_name,
             'category_id' => $request->category_id,
+            'discount_id' => $request->discount_id,
             'price' => $request->price,
-            'stoc' => $request->stoc,
+            'price_discount' => $priceEnd, 
+            'product_information' => $request->product_information,
             'image' => $imageName,
         ]);
 

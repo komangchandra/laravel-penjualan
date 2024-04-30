@@ -15,8 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('product_name');
             $table->foreignId('category_id');
+            $table->foreignId('discount_id')->nullable();
             $table->decimal('price', 10, 2);
-            $table->integer('stoc');
+            $table->decimal('price_discount', 10, 2)->nullable();
+            $table->string('product_information');
             $table->string('image');
             $table->timestamps();
         });

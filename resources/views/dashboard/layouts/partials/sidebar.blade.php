@@ -43,10 +43,16 @@
     </div>
   </li>
 
-  <li class="nav-item {{ Request::is('dashboard/apa*') ? 'active' : '' }}">
-    <a class="nav-link" href="{{ route('profiles.index') }}">
+  <li class="nav-item {{ Request::is('dashboard/discounts*') ? 'active' : '' }}">
+    <a class="nav-link" href="{{ route('discounts.index') }}">
       <i class="fas fa-fw fa-file"></i>
-      <span>Data Produk</span></a>
+      <span>Data Diskon</span></a>
+  </li>
+
+  <li class="nav-item {{ Request::is('dashboard/sales*') ? 'active' : '' }}">
+    <a class="nav-link" href="{{ route('sales.index') }}">
+      <i class="fas fa-fw fa-cart-plus"></i>
+      <span>Data Penjualan</span></a>
   </li>
 
   <!-- Nav Item - Tables -->

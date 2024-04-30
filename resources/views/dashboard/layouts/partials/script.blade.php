@@ -8,4 +8,8 @@
 <!-- Custom scripts for all pages-->
 <script src="{{ asset('/') }}dash/js/sb-admin-2.min.js"></script>
 
+<script>
+  console.log('Kochan 😊');
+</script>
+
 @stack('js')
