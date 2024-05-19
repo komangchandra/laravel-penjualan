@@ -5,7 +5,7 @@
 @section('content')
   <section>
     <div class="container my-5 py-5">
-      <h4>Keranjang Saya - {{ Auth::user()->name }}</h4>
+      <h4 class="text-light">Keranjang Saya - {{ Auth::user()->name }}</h4>
       @if (session('success'))
         <div class="alert alert-success">
           {{ session('success') }}
