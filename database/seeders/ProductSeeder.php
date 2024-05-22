@@ -18,6 +18,7 @@ class ProductSeeder extends Seeder
             'category_id' => 1,
             'discount_id' => null,
             'price' => 12000,
+            'price_discount' => 12000,
             'product_information' => 'null',
             'image' => "null"
         ]);
@@ -27,6 +28,7 @@ class ProductSeeder extends Seeder
             'category_id' => 2,
             'discount_id' => null,
             'price' => 15000,
+            'price_discount' => 15000,
             'product_information' => 'null',
             'image' => "null"
         ]);
@@ -36,6 +38,7 @@ class ProductSeeder extends Seeder
             'category_id' => 3,
             'discount_id' => null,
             'price' => 20000,
+            'price_discount' => 20000,
             'product_information' => 'null',
             'image' => "null"
         ]);
@@ -45,6 +48,7 @@ class ProductSeeder extends Seeder
             'category_id' => 4,
             'discount_id' => null,
             'price' => 25000,
+            'price_discount' => 25000,
             'product_information' => 'null',
             'image' => "null"
         ]);
