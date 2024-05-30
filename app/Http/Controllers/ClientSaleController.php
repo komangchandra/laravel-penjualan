@@ -71,6 +71,6 @@ class ClientSaleController extends Controller
 
     public function pembayaran()
     {
-        return "Selamat";
+        return view('client.checkout');
     }
 }

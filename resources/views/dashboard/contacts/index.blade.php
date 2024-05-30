@@ -1,14 +1,14 @@
 @extends('dashboard.layouts.app')
 
-@section('title', 'Dashboard - Data Metode Pembayaran')
+@section('title', 'Dashboard - Data Narahubung')
 
 @push('css')
   <link href="{{ asset('/') }}dash/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 @endpush
 
 @section('content')
-  <h1 class="h3 mb-4 text-gray-800">Metode Pembayaran</h1>
-  <a class="btn btn-primary mb-3" href="{{ route('payments.create') }}">Tambahkan Metode Pembayaran</a>
+  <h1 class="h3 mb-4 text-gray-800">Narahubung</h1>
+  <a class="btn btn-primary mb-3" href="{{ route('contacts.create') }}">Tambahkan Narahubung</a>
 
   @if (session('success'))
     <div class="alert alert-success">
@@ -18,7 +18,7 @@
 
   <div class="card shad ow mb-4">
     <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">Tabel Metode Pembayaran</h6>
+      <h6 class="m-0 font-weight-bold text-primary">Tabel Narahubung</h6>
     </div>
     <div class="card-body">
       <div class="table-responsive">
@@ -26,29 +26,29 @@
           <thead>
             <tr>
               <th>#</th>
-              <th>Nama Bank</th>
-              <th>Nomor Bank</th>
+              <th>Nama Admin</th>
+              <th>Nomor Admin</th>
               <th>Aksi</th>
             </tr>
           </thead>
           <tfoot>
             <tr>
               <th>#</th>
-              <th>Nama Bank</th>
-              <th>Nomor Bank</th>
+              <th>Nama Admin</th>
+              <th>Nomor Admin</th>
               <th>Aksi</th>
             </tr>
           </tfoot>
           <tbody>
-            @forelse ($payments as $payment)
+            @forelse ($contacts as $contact)
               <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ $payment->bank }}</td>
-                <td>{{ $payment->number }}</td>
+                <td>{{ $contact->name }}</td>
+                <td>{{ $contact->number }}</td>
                 <td>
                   <form onsubmit="return confirm('Yakin ingin menghapus data?');"
-                    action="{{ route('payments.destroy', $payment->id) }}" method="POST">
-                    <a href="{{ route('payments.edit', $payment->id) }}" class="btn btn-sm btn-warning"><i
+                    action="{{ route('contacts.destroy', $contact->id) }}" method="POST">
+                    <a href="{{ route('contacts.edit', $contact->id) }}" class="btn btn-sm btn-warning"><i
                         class="fa fa-pencil-alt"></i></a>
                     @csrf
                     @method('DELETE')

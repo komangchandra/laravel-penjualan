@@ -49,6 +49,12 @@
       <span>Data Diskon</span></a>
   </li>
 
+  <li class="nav-item {{ Request::is('dashboard/contacts*') ? 'active' : '' }}">
+    <a class="nav-link" href="{{ route('contacts.index') }}">
+      <i class="fas fa-fw fa-phone"></i>
+      <span>Data Narahubung</span></a>
+  </li>
+
   <li class="nav-item {{ Request::is('dashboard/payments*') ? 'active' : '' }}">
     <a class="nav-link" href="{{ route('payments.index') }}">
       <i class="fas fa-fw fa-credit-card"></i>

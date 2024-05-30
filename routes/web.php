@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ClientProductController;
 use App\Http\Controllers\ClientSaleController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
@@ -82,6 +83,18 @@ Route::controller(SaleController::class)->group(function(){
 
 Route::controller(PaymentController::class)->group(function(){
     Route::get('/dashboard/payments', 'index')->name('payments.index');
+    Route::get('dashboard/payments/create', 'create')->name('payments.create');
+    Route::post('dashboard/payments/store', 'store')->name('payments.store');
     Route::get('/dashboard/payments/{payment}/edit', 'edit')->name('payments.edit');
     Route::put('/dashboard/payments/{payment}', 'update')->name('payments.update');
+    Route::delete('/dashboard/payments/{payment}/destroy', 'destroy')->name('payments.destroy');
+})->middleware('admin');
+
+Route::controller(ContactController::class)->group(function(){
+    Route::get('/dashboard/contacts', 'index')->name('contacts.index');
+    Route::get('dashboard/contacts/create', 'create')->name('contacts.create');
+    Route::post('dashboard/contacts/store', 'store')->name('contacts.store');
+    Route::get('/dashboard/contacts/{contact}/edit', 'edit')->name('contacts.edit');
+    Route::put('/dashboard/contacts/{contact}', 'update')->name('contacts.update');
+    Route::delete('/dashboard/contacts/{contact}/destroy', 'destroy')->name('contacts.destroy');
 })->middleware('admin');

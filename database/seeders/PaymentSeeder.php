@@ -17,5 +17,9 @@ class PaymentSeeder extends Seeder
             'bank' => 'BRI',
             'number' => '123-456-789-1091',
         ]);
+        Payment::create([
+            'bank' => 'COD',
+            'number' => '123-456-789-1091',
+        ]);
     }
 }

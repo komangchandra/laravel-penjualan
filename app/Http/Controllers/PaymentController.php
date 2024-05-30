@@ -19,6 +19,26 @@ class PaymentController extends Controller
         return view('dashboard.payments.index', compact('payments'));
     }
 
+    public function create()
+    {
+        return view('dashboard.payments.create');
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'bank' => 'required',
+            'number' => 'required',
+        ]);
+
+        Payment::create([
+            'bank' => $request->bank,
+            'number' => $request->number
+        ]);
+
+        return redirect()->route('payments.index')->with('success', 'Data berhasil ditambahkan');
+    }
+
     public function edit(Payment $payment)
     {
         return view('dashboard.payments.edit', compact('payment'));
@@ -37,5 +57,12 @@ class PaymentController extends Controller
         ]);
 
         return redirect()->route('payments.index')->with('success', 'Berhasil update');
+    }
+    
+    public function destroy(Payment $payment)
+    {
+        $payment->delete();
+        
+        return redirect()->route('payments.index')->with('success', 'Berhasil menghapus');
     }
 }

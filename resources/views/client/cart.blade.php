@@ -1,6 +1,6 @@
 @extends('client.layouts.app')
 
-@section('title', 'Kopi Bubuk - Produk')
+@section('title', 'Kopi Bubuk - Keranjang')
 
 @section('content')
   <section>
@@ -27,10 +27,14 @@
             @foreach ($carts as $cart)
               <tr>
                 <th>
-                  <img src="{{ asset('storage/products/' . optional($cart->product)->image) }}"
+                  <img
+                    src="{{ $cart->product->image !== 'null' ? asset('storage/products/' . optional($cart->product)->image) : asset('client/img/' . $cart->product->id) . '.jpg' }}"
                     alt="{{ optional($cart->product)->product_name }}" class="img-cart">
                 </th>
-                <td>{{ optional($cart->product)->product_name }}</td>
+                <td>
+                  {{ optional($cart->product)->product_name }} -
+                  {{ optional($cart->product->category)->category_name }}
+                </td>
                 <td>Rp {{ number_format(optional($cart->product)->price, 0, ',', '.') }}</td>
                 <td>{{ $cart->quantity }}</td>
                 <td>Rp {{ number_format($cart->total, 0, ',', '.') }}</td>
