@@ -4,6 +4,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ClientProductController;
 use App\Http\Controllers\ClientSaleController;
 use App\Http\Controllers\DiscountController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SaleController;
@@ -78,3 +79,9 @@ Route::controller(SaleController::class)->group(function(){
     Route::get('/dashboard/sales/{sale}/edit', 'edit')->name('sales.edit');
     Route::put('/dashboard/sales/{sale}', 'update')->name('sales.update');
 });
+
+Route::controller(PaymentController::class)->group(function(){
+    Route::get('/dashboard/payments', 'index')->name('payments.index');
+    Route::get('/dashboard/payments/{payment}/edit', 'edit')->name('payments.edit');
+    Route::put('/dashboard/payments/{payment}', 'update')->name('payments.update');
+})->middleware('admin');

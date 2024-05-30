@@ -49,6 +49,12 @@
       <span>Data Diskon</span></a>
   </li>
 
+  <li class="nav-item {{ Request::is('dashboard/payments*') ? 'active' : '' }}">
+    <a class="nav-link" href="{{ route('payments.index') }}">
+      <i class="fas fa-fw fa-credit-card"></i>
+      <span>Metode Pembayaran</span></a>
+  </li>
+
   <li class="nav-item {{ Request::is('dashboard/sales*') ? 'active' : '' }}">
     <a class="nav-link" href="{{ route('sales.index') }}">
       <i class="fas fa-fw fa-cart-plus"></i>
