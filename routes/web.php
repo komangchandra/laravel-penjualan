@@ -4,6 +4,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ClientProductController;
 use App\Http\Controllers\ClientSaleController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
@@ -97,4 +98,13 @@ Route::controller(ContactController::class)->group(function(){
     Route::get('/dashboard/contacts/{contact}/edit', 'edit')->name('contacts.edit');
     Route::put('/dashboard/contacts/{contact}', 'update')->name('contacts.update');
     Route::delete('/dashboard/contacts/{contact}/destroy', 'destroy')->name('contacts.destroy');
+})->middleware('admin');
+
+Route::controller(DeliveryController::class)->group(function(){
+    Route::get('/dashboard/deliveries', 'index')->name('deliveries.index');
+    Route::get('dashboard/deliveries/create', 'create')->name('deliveries.create');
+    Route::post('dashboard/deliveries/store', 'store')->name('deliveries.store');
+    Route::get('/dashboard/deliveries/{delivery}/edit', 'edit')->name('deliveries.edit');
+    Route::put('/dashboard/deliveries/{delivery}', 'update')->name('deliveries.update');
+    Route::delete('/dashboard/deliveries/{delivery}/destroy', 'destroy')->name('deliveries.destroy');
 })->middleware('admin');

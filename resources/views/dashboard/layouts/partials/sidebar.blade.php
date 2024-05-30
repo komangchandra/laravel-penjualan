@@ -61,6 +61,12 @@
       <span>Metode Pembayaran</span></a>
   </li>
 
+  <li class="nav-item {{ Request::is('dashboard/deliveries*') ? 'active' : '' }}">
+    <a class="nav-link" href="{{ route('deliveries.index') }}">
+      <i class="fas fa-fw fa-truck"></i>
+      <span>Metode Pengiriman</span></a>
+  </li>
+
   <li class="nav-item {{ Request::is('dashboard/sales*') ? 'active' : '' }}">
     <a class="nav-link" href="{{ route('sales.index') }}">
       <i class="fas fa-fw fa-cart-plus"></i>
