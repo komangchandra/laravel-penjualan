@@ -6,6 +6,7 @@ use App\Http\Controllers\ClientSaleController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\DiscountController;
+use App\Http\Controllers\LandingController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -25,11 +26,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 // All routes untuk client side
-Route::get('/', function () {
-    return view('client.landingpage');
-})->name('landing');
+Route::get('/', [LandingController::class, 'index'])->name('landing');
+Route::get('/tentang-kami', [LandingController::class, 'about'])->name('about');
 
 Route::get('/products', [ClientProductController::class, 'index'])->name('client.product.index');
+Route::get('/products/{product}', [ClientProductController::class, 'show'])->name('client.product.show');
 
 
 Route::get('keranjang-saya/', [ClientSaleController::class, 'cart'])->name('client.product.cart');

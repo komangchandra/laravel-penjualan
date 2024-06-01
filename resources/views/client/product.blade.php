@@ -18,7 +18,7 @@
                   {{ optional($product->category)->category_name }}</h5>
                 <p class="card-text card-desc">Rp {{ number_format($product->price_discount, 0, ',', '.') }}</p>
                 <div class="d-flex gap-2">
-                  <a class="btn btn-secondary" href="">Lihat Produk</a>
+                  <a class="btn btn-secondary" href="{{ route('client.product.show', $product->id) }}">Lihat Produk</a>
                   <form action="{{ route('client.product.add_to_cart', $product->id) }}" method="POST">
                     @csrf
                     <button type="submit" class="btn btn-secondary"><i class="bi bi-cart3"> </i>Beli</button>

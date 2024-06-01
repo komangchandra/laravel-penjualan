@@ -11,8 +11,8 @@
           <a class="nav-link {{ Request::is('products*') ? 'active' : '' }}"
             href="{{ route('client.product.index') }}">Produk</a>
         </li>
-        <li class="nav-item fs-5 ms-5">
-          <a class="nav-link" href="#">Tentang Kami</a>
+        <li class="nav-item fs-5 ms-5 {{ Request::is('tentang-kami*') ? 'active' : '' }}">
+          <a class="nav-link" href="{{ route('about') }}">Tentang Kami</a>
         </li>
         <li class="nav-item fs-5 ms-5 dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"

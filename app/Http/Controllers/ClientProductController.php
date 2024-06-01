@@ -13,5 +13,8 @@ class ClientProductController extends Controller
         return view('client.product', compact('products'));
     }
 
-    
+    public function show(Product $product)
+    {
+        return view('client.detailproduct', compact('product'));
+    }
 }

@@ -19,7 +19,7 @@ class ProductSeeder extends Seeder
             'discount_id' => null,
             'price' => 12000,
             'price_discount' => 12000,
-            'product_information' => 'null',
+            'product_information' => 'Kopi robusta dengan cita rasa kuat dan pahit, memiliki aroma khas dan kandungan kafein tinggi, cocok untuk penikmat sejati.',
             'image' => "null"
         ]);
 
