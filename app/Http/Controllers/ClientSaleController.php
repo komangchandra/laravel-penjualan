@@ -59,6 +59,8 @@ class ClientSaleController extends Controller
             Sale::create([
                 'user_id' => Auth::id(),
                 'product_id' => $cart->product_id,
+                'payment_id' => 1,
+                'delivery_id' => 1,
                 'status' => 'Pending',
             ]);
         }

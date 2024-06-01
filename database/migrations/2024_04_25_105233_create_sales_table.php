@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->foreignId('product_id');
+            $table->foreignId('payment_id');
+            $table->foreignId('delivery_id');
             $table->string('status');
             $table->timestamps();
         });

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -24,6 +25,19 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('dashboard.index');
+        $totalDiscountSales = DB::table('sales')
+            ->join('products', 'sales.product_id', '=', 'products.id')
+            ->where('sales.status', 'Selesai')
+            ->sum('products.price_discount');
+
+        $bestSellingProduct = DB::table('sales')
+            ->select('products.product_name', 'categories.category_name', DB::raw('COUNT(sales.product_id) as total_sales'))
+            ->join('products', 'sales.product_id', '=', 'products.id')
+            ->join('categories', 'products.category_id', '=', 'categories.id')
+            ->groupBy('sales.product_id', 'products.product_name', 'categories.category_name')
+            ->orderBy('total_sales', 'DESC')
+            ->first();
+
+        return view('dashboard.index', compact('totalDiscountSales', 'bestSellingProduct'));
     }
 }

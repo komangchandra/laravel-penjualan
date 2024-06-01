@@ -31,7 +31,7 @@
               <th>Diskon</th>
               <th>Harga</th>
               <th>Harga Akhir</th>
-              <th>Keterangan</th>
+              <th>Stok</th>
               <th>Foto</th>
               <th>Aksi</th>
             </tr>
@@ -44,7 +44,7 @@
               <th>Diskon</th>
               <th>Harga</th>
               <th>Harga Akhir</th>
-              <th>Keterangan</th>
+              <th>Stok</th>
               <th>Foto</th>
               <th>Aksi</th>
             </tr>
@@ -60,7 +60,9 @@
                 <td>Rp {{ number_format($product->price_discount, 0, ',', '.') }}</td>
                 <td>{{ $product->product_information }}</td>
                 <td>
-                  <img src="{{ asset('storage/products/' . $product->image) }}" alt="" class="img-table">
+                  <img
+                    src="{{ $product->image !== 'null' ? asset('storage/products/' . $product->image) : asset('client/img/' . $product->id . '.jpg') }}"
+                    alt="" class="img-table">
                 </td>
                 <td>
                   <form onsubmit="return confirm('Yakin ingin menghapus data?');"

@@ -27,7 +27,8 @@
               <th>#</th>
               <th>Nama Pelanggan</th>
               <th>Nama Produk</th>
-              <th>Kategori Produk</th>
+              <th>Metode Pembayaran</th>
+              <th>Metode Pengiriman</th>
               <th>Harga</th>
               <th>Status</th>
               <th>Aksi</th>
@@ -38,7 +39,8 @@
               <th>#</th>
               <th>Nama Pelanggan</th>
               <th>Nama Produk</th>
-              <th>Kategori Produk</th>
+              <th>Metode Pembayaran</th>
+              <th>Metode Pengiriman</th>
               <th>Harga</th>
               <th>Status</th>
               <th>Aksi</th>
@@ -49,8 +51,11 @@
               <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ optional($sale->user)->name }}</td>
-                <td>{{ optional($sale->product)->product_name }}</td>
-                <td>{{ optional($sale->product)->category->category_name }}</td>
+                <td>
+                  {{ optional($sale->product)->product_name }} - {{ optional($sale->product)->category->category_name }}
+                </td>
+                <td>{{ optional($sale->payment)->bank }}</td>
+                <td>{{ optional($sale->delivery)->delivery_name }}</td>
                 <td>Rp {{ number_format(optional($sale->product)->price_discount, 0, ',', '.') }}</td>
                 <td>
                   <span class="btn btn-sm {{ $sale->status === 'Pending' ? 'btn-warning' : 'btn-primary' }}">

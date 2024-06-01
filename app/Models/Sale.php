@@ -20,4 +20,14 @@ class Sale extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
+    public function payment()
+    {
+        return $this->belongsTo(Payment::class);
+    }
+
+    public function delivery()
+    {
+        return $this->belongsTo(Delivery::class);
+    }
 }
