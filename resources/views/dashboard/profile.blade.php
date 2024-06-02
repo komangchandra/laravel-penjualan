@@ -29,6 +29,7 @@
               <th>Alamat</th>
               <th>Nomor Hp</th>
               <th>Email</th>
+              <th>Foto</th>
               <th>Aksi</th>
             </tr>
           </thead>
@@ -39,6 +40,7 @@
               <th>Alamat</th>
               <th>Nomor Hp</th>
               <th>Email</th>
+              <th>Foto</th>
               <th>Aksi</th>
             </tr>
           </tfoot>
@@ -50,6 +52,11 @@
                 <td>{{ $profile->address }}</td>
                 <td>{{ $profile->number }}</td>
                 <td>{{ $profile->email }}</td>
+                <td>
+                  <img
+                    src="{{ $profile->image !== 'null' ? asset('storage/profiles/' . $profile->image) : asset('client/img/' . 'logo.jpg') }}"
+                    alt="" class="img-table">
+                </td>
                 <td>
                   <form onsubmit="return confirm('Are you sure you want to delete??');" action="" method="POST">
                     <a href="{{ route('profiles.edit', $profile->id) }}" class="btn btn-sm btn-warning"><i

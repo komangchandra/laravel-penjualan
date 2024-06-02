@@ -51,6 +51,10 @@
           </tbody>
         </table>
 
+        {{-- <div class="mx-auto">
+          <a href="{{ route('client.checkout.pembayaran') }}" class="btn btn-primary">Checkout</a>
+        </div> --}}
+
         <form action="{{ route('client.checkout') }}" method="POST" class="mx-auto">
           @csrf
           <button type="submit" class="btn btn-primary">Checkout</button>

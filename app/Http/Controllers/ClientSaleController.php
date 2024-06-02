@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Delivery;
+use App\Models\Payment;
 use App\Models\Product;
 use App\Models\Sale;
 use Illuminate\Http\Request;
@@ -59,9 +61,10 @@ class ClientSaleController extends Controller
             Sale::create([
                 'user_id' => Auth::id(),
                 'product_id' => $cart->product_id,
-                'payment_id' => 1,
-                'delivery_id' => 1,
+                'payment_id' => null,
+                'delivery_id' => null,
                 'status' => 'Pending',
+                'image' => null,
             ]);
         }
 
@@ -73,6 +76,59 @@ class ClientSaleController extends Controller
 
     public function pembayaran()
     {
-        return view('client.checkout');
+        $userId = Auth::id();
+        $sales = Sale::with('product.category')
+                    ->where('user_id', $userId)
+                    ->where('status', 'Pending')
+                    ->get();
+
+        $totalPrice = $sales->sum(function ($sale) 
+        {
+            return $sale->product->price;
+        });
+
+        $payments = Payment::all();
+        $deliveries = Delivery::all();
+
+        return view('client.checkout', compact('sales', 'totalPrice', 'payments', 'deliveries'));
+    }
+
+    // update pembayaran
+    public function updateSales(Request $request)
+    {
+        // Ambil data sales yang ingin diperbarui
+        $sales = Sale::where('user_id', Auth::id())->where('status', 'Pending')->get();
+
+        // Validasi data yang diterima dari form
+        $request->validate([
+            'payment_id' => 'required|exists:payments,id',
+            'delivery_id' => 'required|exists:deliveries,id',
+            'image_payment' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        // Simpan file gambar jika ada
+        if ($request->hasFile('image_payment')) {
+            $imagePath = $request->file('image_payment')->store('public/payment');
+            $imageName = basename($imagePath);
+        }
+
+        // Perbarui data sales
+        foreach ($sales as $sale) {
+            $sale->update([
+                'payment_id' => $request->payment_id ?? $sale->payment_id,
+                'delivery_id' => $request->delivery_id ?? $sale->delivery_id,
+                'status' => 'Sudah Bayar', 
+                'image' => $imageName ?? $sale->image,
+            ]);
+        }
+
+        return redirect()->route('client.checkout.pembayaran')->with('success', 'Berhasil bayar.');
+    }
+
+    // Hapus produk di pembayaran
+    public function hapus(Sale $sale)
+    {
+        $sale->delete();
+        return redirect()->route('client.checkout.pembayaran')->with('success', 'Produk berhasil dikurangi.');
     }
 }

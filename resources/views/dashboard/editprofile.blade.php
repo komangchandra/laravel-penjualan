@@ -10,7 +10,7 @@
       <h6 class="m-0 font-weight-bold text-primary">Form update profile</h6>
     </div>
     <div class="card-body">
-      <form action="{{ route('profiles.update', $profile->id) }}" method="POST">
+      <form action="{{ route('profiles.update', $profile->id) }}" method="POST" enctype="multipart/form-data">
         @method('PUT')
         @csrf
         <div class="mb-3 row">
@@ -39,6 +39,14 @@
           <div class="col-sm-8">
             <input type="text" class="form-control" id="email" name="email"
               value="{{ old('email', $profile->email) }}" required>
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label for="stoc" class="col-sm-4 col-form-label">Foto</label>
+          <div class="col-sm-6">
+            <input type="file" class="form-control" id="image" name="image" required>
+            <img id="preview-image" src="#" alt="Preview Gambar"
+              style="display: none; max-width: 50%; margin-top: 10px;">
           </div>
         </div>
         <button type="submit" class="btn btn-primary">Update profile</button>

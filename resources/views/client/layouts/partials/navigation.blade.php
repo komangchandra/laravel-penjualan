@@ -22,7 +22,6 @@
           @if (Route::has('login'))
             <ul class="dropdown-menu">
               @auth
-                <li><a class="dropdown-item" href="#">Profile</a></li>
                 <li><a class="dropdown-item" href="{{ route('logout') }}"
                     onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
@@ -44,8 +43,8 @@
         @if (Route::has('login'))
           @auth
             <li class="nav-item fs-5">
-              <a class="nav-link {{ Request::is('keranjang-saya*') ? 'active' : '' }}" href="#"><i
-                  class="bi bi-cart3"></i></a>
+              <a class="nav-link {{ Request::is('keranjang-saya*') ? 'active' : '' }}"
+                href="{{ route('client.product.cart') }}"><i class="bi bi-cart3"></i></a>
             </li>
           @endauth
         @endif

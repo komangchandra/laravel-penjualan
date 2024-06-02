@@ -16,8 +16,9 @@ class ProfileSeeder extends Seeder
         Profile::create([
             'company_name' => 'Toko Kopi Cap Raja Muda',
             'address' => 'jl. toko kopi',
-            'number' => '08----',
+            'number' => '0858-0101-0101',
             'email' => 'kopicaprajamuda@gmail.com',
+            'image' => 'null'
         ]);
     }
 }

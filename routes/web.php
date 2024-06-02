@@ -36,8 +36,12 @@ Route::get('/products/{product}', [ClientProductController::class, 'show'])->nam
 Route::get('keranjang-saya/', [ClientSaleController::class, 'cart'])->name('client.product.cart');
 Route::post('keranjang-saya/{product}', [ClientSaleController::class, 'addToCart'])->name('client.product.add_to_cart');
 Route::delete('keranjang-saya/{cart}/destroy', [ClientSaleController::class, 'destroy'])->name('client.product.destroy');
+
+Route::get('/keranjang-saya/pembayaran', [ClientSaleController::class, 'pembayaran'])->name('client.checkout.pembayaran');
+Route::delete('keranjang-saya/pembayaran/{sale}/hapus', [ClientSaleController::class, 'hapus'])->name('client.sale.destroy');
+Route::put('/keranjang-saya/pembayaran', [ClientSaleController::class, 'updateSales'])->name('client.checkout.sudahbayar');
+
 Route::post('/checkout', [ClientSaleController::class, 'checkout'])->name('client.checkout');
-Route::get('/checkout', [ClientSaleController::class, 'pembayaran'])->name('client.checkout.pembayaran');
 
 Auth::routes();
 
@@ -81,6 +85,7 @@ Route::controller(SaleController::class)->group(function(){
     Route::get('/dashboard/sales', 'index')->name('sales.index');
     Route::get('/dashboard/sales/{sale}/edit', 'edit')->name('sales.edit');
     Route::put('/dashboard/sales/{sale}', 'update')->name('sales.update');
+    Route::get('/dashboard/sales/exportPDF', 'exportPDF')->name('sales.exportPDF');
 });
 
 Route::controller(PaymentController::class)->group(function(){

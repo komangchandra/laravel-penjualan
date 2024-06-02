@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\Sale;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class SaleController extends Controller
 {
@@ -14,10 +15,41 @@ class SaleController extends Controller
         $this->middleware('admin');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $sales = Sale::with(['user', 'product'])->get();
-        return view('dashboard.sales.index', compact('sales'));
+        $mounths = [
+            ['value' => 1, 'label' => 'Januari'],
+            ['value' => 2, 'label' => 'Februari'],
+            ['value' => 3, 'label' => 'Maret'],
+            ['value' => 4, 'label' => 'April'],
+            ['value' => 5, 'label' => 'Mei'],
+            ['value' => 6, 'label' => 'Juni'],
+            ['value' => 7, 'label' => 'Juli'],
+            ['value' => 8, 'label' => 'Agustus'],
+            ['value' => 9, 'label' => 'September'],
+            ['value' => 10, 'label' => 'Oktober'],
+            ['value' => 11, 'label' => 'November'],
+            ['value' => 12, 'label' => 'Desember'],
+        ];
+    
+        $years = range(date('Y'), 2021); // Range tahun dari tahun sekarang hingga 2010
+    
+        $statuses = ['Pending', 'Sudah Bayar', 'Selesai'];
+    
+        $sales = Sale::query();
+    
+        if ($request->filled('bulan') && $request->filled('tahun')) {
+            $sales->whereMonth('updated_at', $request->bulan)
+                  ->whereYear('updated_at', $request->tahun);
+        }
+    
+        if ($request->filled('status')) {
+            $sales->where('status', $request->status);
+        }
+    
+        $sales = $sales->with(['user', 'product'])->get();
+    
+        return view('dashboard.sales.index', compact('sales', 'mounths', 'years', 'statuses', 'request'));  
     }
 
     public function store(Request $request, $product)
@@ -49,6 +81,7 @@ class SaleController extends Controller
     {
         $status = [
             ['name' => "Pending"],
+            ['name' => "Sudah Bayar"],
             ['name' => "Selesai"]
         ];
 
@@ -70,4 +103,46 @@ class SaleController extends Controller
 
         return redirect()->route('sales.index')->with('success', 'Berhasil update');
     }
+
+    public function exportPDF(Request $request)
+    {
+        $mounths = [
+            ['value' => 1, 'label' => 'Januari'],
+            ['value' => 2, 'label' => 'Februari'],
+            ['value' => 3, 'label' => 'Maret'],
+            ['value' => 4, 'label' => 'April'],
+            ['value' => 5, 'label' => 'Mei'],
+            ['value' => 6, 'label' => 'Juni'],
+            ['value' => 7, 'label' => 'Juli'],
+            ['value' => 8, 'label' => 'Agustus'],
+            ['value' => 9, 'label' => 'September'],
+            ['value' => 10, 'label' => 'Oktober'],
+            ['value' => 11, 'label' => 'November'],
+            ['value' => 12, 'label' => 'Desember'],
+        ];
+    
+        $years = range(date('Y'), 2021); // Range tahun dari tahun sekarang hingga 2010
+    
+        $statuses = ['Pending', 'Sudah Bayar', 'Selesai'];
+    
+        $sales = Sale::query();
+    
+        if ($request->filled('bulan') && $request->filled('tahun')) {
+            $sales->whereMonth('updated_at', $request->bulan)
+                  ->whereYear('updated_at', $request->tahun);
+        }
+    
+        if ($request->filled('status')) {
+            $sales->where('status', $request->status);
+        }
+    
+        $sales = $sales->with(['user', 'product'])->get();
+
+        // Generate PDF
+        $pdf = PDF::loadView('dashboard.sales.export_pdf', compact('sales'));
+
+        // Download PDF
+        return $pdf->download('sales_report.pdf');
+    }
+
 }

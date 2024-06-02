@@ -59,7 +59,7 @@
               </div>
             </div>
             <div class="mb-3 row">
-              <label for="stoc" class="col-sm-4 col-form-label">Stok</label>
+              <label for="stoc" class="col-sm-4 col-form-label">Informasi</label>
               <div class="form-floating col-sm-6">
                 <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"
                   name="product_information" value="{{ old('product_information', $product->product_information) }}"></textarea>

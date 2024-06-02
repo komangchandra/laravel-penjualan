@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Delivery;
 use App\Models\Payment;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -20,6 +21,14 @@ class PaymentSeeder extends Seeder
         Payment::create([
             'bank' => 'COD',
             'number' => '123-456-789-1091',
+        ]);
+
+        Delivery::create([
+            'delivery_name' => 'COD (Cash or Duel)',
+        ]);
+
+        Delivery::create([
+            'delivery_name' => 'JNE',
         ]);
     }
 }

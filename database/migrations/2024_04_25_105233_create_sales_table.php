@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->foreignId('product_id');
-            $table->foreignId('payment_id');
-            $table->foreignId('delivery_id');
+            $table->foreignId('payment_id')->nullable();
+            $table->foreignId('delivery_id')->nullable();
             $table->string('status');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

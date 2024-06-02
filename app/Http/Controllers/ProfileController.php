@@ -36,13 +36,18 @@ class ProfileController extends Controller
             'address' => 'required|string',
             'number' => 'required|string',
             'email' => 'required|string',
+            'image' => 'required',
         ]);
+
+        $imagePath = $request->file('image')->store('public/profiles');
+        $imageName = basename($imagePath);
 
         $profile->update([
             'company_name' => $request->company_name,
             'address' => $request->address,
             'number' => $request->number,
             'email' => $request->email,
+            'image' => $imageName,
         ]);
 
         return redirect()->route('profiles.index')->with('success', 'Profil berhasil di update');
